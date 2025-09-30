@@ -1,0 +1,91 @@
+import asyncio
+
+from vkbottle import Keyboard, Callback
+from vkbottle.bot import BotLabeler, MessageEvent
+
+from customs.events import callback_handler
+from menus import TO_MAIN_MENU_BUTTON
+from models.courses import CourseInfo
+from settings import services, video_uploader
+
+course_labeler = BotLabeler()
+
+
+@callback_handler(course_labeler, cmd="start_course")
+async def start_course(event: MessageEvent):
+    course = CourseInfo(**event.data["course"])
+    course_part = await services.courses.get_next_part(event.peer_id, course.id)
+
+    if course_part is None:
+        await event.send_message(
+            "Не удалось загрузить следующий урок.\n\nПопробуйте позже.",
+            keyboard=TO_MAIN_MENU_BUTTON
+        )
+        return
+
+    if course_part.video_url:
+        video = await video_uploader.upload(
+            link=course_part.video_url,
+            peer_id=event.peer_id,
+        )
+        await event.send_message("🎥 Видео:")
+        await event.send_message(attachment=video)
+
+    await asyncio.sleep(10)
+
+    part_title = course_part.title
+    part_description = course_part.description
+    await event.send_message(f"{part_title}\n{part_description}")
+
+    await asyncio.sleep(10)
+
+    answers = Keyboard(inline=True).add(
+        Callback(
+            label=course_part.a1,
+            payload={
+                "cmd": "answer_question",
+                "correct_answer_id": course_part.correct_answer_id,
+                "answer_id": "1",
+                "course_part": course_part.model_dump(),
+                "course": course.model_dump(),
+            }
+        )
+    ).row().add(
+        Callback(
+            label=course_part.a2,
+            payload={
+                "cmd": "answer_question",
+                "correct_answer_id": course_part.correct_answer_id,
+                "answer_id": "2",
+                "course_part": course_part.model_dump(),
+                "course": course.model_dump(),
+            }
+        )
+    ).row().add(
+        Callback(
+            label=course_part.a3,
+            payload={
+                "cmd": "answer_question",
+                "correct_answer_id": course_part.correct_answer_id,
+                "answer_id": "3",
+                "course_part": course_part.model_dump(),
+                "course": course.model_dump(),
+            }
+        )
+    ).row().add(
+        Callback(
+            label=course_part.a4,
+            payload={
+                "cmd": "answer_question",
+                "correct_answer_id": course_part.correct_answer_id,
+                "answer_id": "4",
+                "course_part": course_part.model_dump(),
+                "course": course.model_dump(),
+            }
+        )
+    )
+
+    await event.send_message(
+        course_part.question,
+        keyboard=answers.get_json()
+    )

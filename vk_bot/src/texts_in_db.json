@@ -1,0 +1,11 @@
+{
+    "start_greetings": "приветствие",
+    "about_project_text": "О Проекте.",
+    "user_agreement_message": "user_agreement_message",
+    "user_not_agree_message": "Благодарю за уделённое время! Вы сможете вернуться в наш диалог в любой момент, отправив команду старт",
+    "is_museum_worker_question": "❓ Вы работаете в музее?",
+    "how_long_museum_worker": "how_long_museum_worker",
+    "occupation_question": "❗️ Укажите, пожалуйста, Вашу сферу деятельности.",
+    "main_menu_text": "Пожалуйста, выберите, с каким запросом вы пришли сегодня.",
+    "about_courses_message": "about_courses_message"
+}
