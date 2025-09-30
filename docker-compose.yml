@@ -12,7 +12,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./museum_api/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./rest_api/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - museum_network
     healthcheck:
@@ -20,11 +20,11 @@ services:
       timeout: 20s
       retries: 10
 
-  museum_api:
+  rest_api:
     build:
-      context: ./museum_api
+      context: ./rest_api
       dockerfile: Dockerfile
-    container_name: museum_api
+    container_name: rest_api
     restart: unless-stopped
     environment:
       - DATABASE_URL=mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:${MYSQL_PORT:-3306}/${MYSQL_DATABASE}
@@ -44,7 +44,7 @@ services:
     networks:
       - museum_network
     volumes:
-      - ./museum_api:/app
+      - ./rest_api:/app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
