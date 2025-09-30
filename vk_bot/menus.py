@@ -1,6 +1,5 @@
 from vkbottle import Keyboard
 
-from states.registration import Registration
 from vkbottle_schemas.keyboard import KeyboardButtonSchema
 
 MAIN_MENU = Keyboard(one_time=False, inline=True).schema([
@@ -68,7 +67,6 @@ HOW_MUCH_YEARS_MENU = Keyboard(one_time=False, inline=True).schema([
         label="Менее 2-х лет",
         payload={
             "cmd": "how_much_years",
-            "state": Registration.HOW_MUCH_YEARS.value,
             "data": "lt2"
         },
         type="callback"
@@ -77,7 +75,6 @@ HOW_MUCH_YEARS_MENU = Keyboard(one_time=False, inline=True).schema([
         label="От 2 до 5 лет",
         payload={
             "cmd": "how_much_years",
-            "state": Registration.HOW_MUCH_YEARS.value,
             "data": "f2t5"
         },
         type="callback"
@@ -86,7 +83,6 @@ HOW_MUCH_YEARS_MENU = Keyboard(one_time=False, inline=True).schema([
         label="От 5 до 10 лет",
         payload={
             "cmd": "how_much_years",
-            "state": Registration.HOW_MUCH_YEARS.value,
             "data": "f5t10"
         },
         type="callback"
@@ -95,7 +91,6 @@ HOW_MUCH_YEARS_MENU = Keyboard(one_time=False, inline=True).schema([
         label="Более 10 лет",
         payload={
             "cmd": "how_much_years",
-            "state": Registration.HOW_MUCH_YEARS.value,
             "data": "mt10"
         },
         type="callback"
