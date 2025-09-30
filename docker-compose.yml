@@ -37,7 +37,7 @@ services:
       - PORT=${API_PORT:-8000}
       - DEBUG=${DEBUG:-false}
     ports:
-      - "8000:8000"
+      - "8080:8000"
     depends_on:
       mysql:
         condition: service_healthy
