@@ -52,7 +52,7 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
         else:
             course_part_query = (
                 select(CoursePart, PartQuestion)
-                .join(CoursePart.questions)
+                .join(PartQuestion, PartQuestion.part_id == CoursePart.id)
                 .where(
                     CoursePart.course_id == course_id,
                     CoursePart.order_number == 1
@@ -71,7 +71,7 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
 async def get_part_by_id(course_id: int, part_id: int, db: Session) -> CoursePartSchema:
     course_part_query = (
         select(CoursePart, PartQuestion)
-        .join(CoursePart.questions)
+        .join(PartQuestion, PartQuestion.part_id == CoursePart.id)
         .where(
             CoursePart.course_id == course_id,
             CoursePart.id == part_id
