@@ -26,7 +26,7 @@ async def submit_registration(message: Message | MessageEvent, registration_data
 
     result = await services.registration.register(registration_data_object)
 
-    if result["success"]:
+    if result.success:
         main_menu_text = await get_text_from_db("main_menu_text")
         await default_main_menu(message, main_menu_text=main_menu_text)
 
