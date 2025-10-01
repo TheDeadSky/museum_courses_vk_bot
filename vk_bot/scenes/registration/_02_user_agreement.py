@@ -22,6 +22,7 @@ def init(labeler: BotLabeler):
     @callback_handler(labeler, cmd="agree", state=Registration.REGISTRATION_AGREEMENT.value)
     async def confirm(event: MessageEvent):
         await event.send_empty_answer()
+        await event.send_message("Благодарю за доверие! Нам с командой важно знать, кто интересуется проектом «Лаборатория музейного интеллекта», поэтому зададим Вам пару вопросов.")
         await state_dispenser.set(
             event.peer_id,
             Registration.REGISTRATION_IS_MUSEUM_WORKER

@@ -29,6 +29,7 @@ class User(Base):
     firstname: Mapped[Optional[str]] = mapped_column(String(255))
     lastname: Mapped[Optional[str]] = mapped_column(String(255))
     is_museum_worker: Mapped[bool] = mapped_column(Boolean, default=False)
+    museum_name: Mapped[Optional[str]] = mapped_column(String(500))
     how_long_museum_worker: Mapped[Optional[str]] = mapped_column(String(255))
     occupation: Mapped[Optional[str]] = mapped_column(String(255))
     registration_date: Mapped[DateTime] = mapped_column(

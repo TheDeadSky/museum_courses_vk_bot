@@ -8,8 +8,9 @@ class RegistrationData(BaseModel):
     firstname: str | None = None
     lastname: str | None = None
     is_museum_worker: bool = False
-    museum: str | None = None
+    museum_name: str | None = None
     occupation: str | None = None
+    how_long_museum_worker: str | None = None
 
 
 class RegistrationResponse(BaseResponse):

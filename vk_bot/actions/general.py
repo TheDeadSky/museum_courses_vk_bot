@@ -61,12 +61,12 @@ def make_cancel_menu(for_state: str | None = None):
 def make_user_agreement_menu(for_state: str | None = None):
     return Keyboard(one_time=False, inline=True).schema([
         [KeyboardButtonSchema(
-            label="Согласен",
+            label="Да",
             payload={"cmd": "agree", "state": for_state},
             type="callback"
         ).positive().get_json()],
         [KeyboardButtonSchema(
-            label="Не согласен",
+            label="Нет",
             payload={"cmd": "not_agree", "state": for_state},
             type="callback"
         ).negative().get_json()],
