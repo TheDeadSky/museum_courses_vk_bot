@@ -73,7 +73,7 @@ async def start_course(event: MessageEvent):
             label=course_part.answer_4,
             payload={
                 "cmd": "answer_question",
-                "correct_answer": course_part.correct_answer_id,
+                "correct_answer": course_part.correct_answer,
                 "answer": 4,
                 "part_id": course_part.id,
                 "course_id": course.id
