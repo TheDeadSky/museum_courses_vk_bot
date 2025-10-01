@@ -4,7 +4,7 @@ from vkbottle_schemas.keyboard import KeyboardButtonSchema
 
 MAIN_MENU = Keyboard(one_time=False, inline=True).schema([
     [KeyboardButtonSchema(
-        label="Пройти обучение",
+        label="Обучение",
         payload={"cmd": "courses"},
         type="callback"
     ).primary().get_json()],
