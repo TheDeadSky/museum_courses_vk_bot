@@ -2,7 +2,6 @@ from vkbottle.bot import BotLabeler, Message
 
 from actions.general import make_user_agreement_menu
 from actions.main_menu import default_main_menu
-from actions.registration import make_registration_button
 from services.api_service import get_text_from_db
 from menus import MAIN_MENU
 from states.registration import Registration
@@ -33,7 +32,10 @@ async def start_handler(message: Message):
 
     greetings = await get_text_from_db("start_greetings")
 
-    await message.answer(greetings, keyboard=make_user_agreement_menu())
+    await message.answer(
+        greetings,
+        keyboard=make_user_agreement_menu(Registration.REGISTRATION_AGREEMENT.value)
+    )
 
 
 @commands_labeler.message(command="/dev_menu")
