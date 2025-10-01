@@ -21,6 +21,7 @@ async def registration(registration_data: RegistrationData, db: Session) -> Regi
         firstname=registration_data.firstname,
         lastname=registration_data.lastname,
         is_museum_worker=registration_data.is_museum_worker,
+        museum_name=registration_data.museum_name,
         how_long_museum_worker=registration_data.how_long_museum_worker,
         occupation=registration_data.occupation
     )

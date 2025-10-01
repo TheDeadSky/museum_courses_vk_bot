@@ -14,6 +14,7 @@ commands_labeler = BotLabeler()
 @commands_labeler.message(text=["Начать", "начать", "Старт", "старт"])
 async def start_handler(message: Message):
     vk_id = str(message.from_id)
+    user_data = await message.get_user()
 
     registration_check = await services.registration.check(vk_id)
 
@@ -27,7 +28,11 @@ async def start_handler(message: Message):
 
     await state_dispenser.set(
         message.peer_id,
-        Registration.REGISTRATION_AGREEMENT
+        Registration.REGISTRATION_AGREEMENT,
+        {
+            "firstname": user_data.first_name,
+            "lastname": user_data.last_name
+        }
     )
 
     greetings = await get_text_from_db("start_greetings")
