@@ -101,7 +101,7 @@ class UserCourseProgress(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     part_id: Mapped[int] = mapped_column(ForeignKey("course_part.id"))
-    part_question_id: Mapped[int] = mapped_column(ForeignKey("course_part_question.id"))
+    part_question_id: Mapped[int] = mapped_column(ForeignKey("part_questions.id"))
     date: Mapped[DateTime] = mapped_column(DateTime, default=datetime.now())
     answer: Mapped[str] = mapped_column(Text)
 
