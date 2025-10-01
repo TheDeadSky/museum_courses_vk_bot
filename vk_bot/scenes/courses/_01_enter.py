@@ -28,7 +28,7 @@ async def on_enter_courses(event: MessageEvent):
 @callback_handler(courses_enter_labeler, cmd="show_course_info")
 async def show_course_info(event: MessageEvent):
     await event.send_empty_answer()
-    course = await services.courses.get_course(event.data["course_id"])
+    course = await services.courses.get_course(event.payload["course_id"])
 
     if course is None:
         await event.send_message(
