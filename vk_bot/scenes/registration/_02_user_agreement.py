@@ -6,6 +6,8 @@ from states.registration import Registration
 from services.api_service import get_text_from_db
 from settings import state_dispenser
 from actions.general import make_yes_no_menu
+from utils import update_state
+
 
 def init(labeler: BotLabeler):
     @callback_handler(labeler, cmd="not_agree", state=Registration.REGISTRATION_AGREEMENT.value)
@@ -20,12 +22,13 @@ def init(labeler: BotLabeler):
         )
 
     @callback_handler(labeler, cmd="agree", state=Registration.REGISTRATION_AGREEMENT.value)
-    async def confirm(event: MessageEvent):
+    async def user_agree(event: MessageEvent):
         await event.send_empty_answer()
         await event.send_message("Благодарю за доверие! Нам с командой важно знать, кто интересуется проектом «Лаборатория музейного интеллекта», поэтому зададим Вам пару вопросов.")
-        await state_dispenser.set(
+        await update_state(
             event.peer_id,
-            Registration.REGISTRATION_IS_MUSEUM_WORKER
+            Registration.REGISTRATION_IS_MUSEUM_WORKER,
+            {}
         )
         is_museum_worker_question = await get_text_from_db("is_museum_worker_question")
         await event.send_message(
