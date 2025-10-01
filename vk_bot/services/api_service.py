@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import random
 import aiohttp
@@ -7,7 +6,6 @@ import aiohttp
 from models.base import BaseResponse
 from models.experience import ShareExperienceData
 from models.feedback import Feedback
-from models.registration import RegistrationData, RegistrationResponse
 from models.stories import HistoryResponse
 from models.course import SelfSupportCourseResponse, CourseUserAnswer
 from services.http import HttpService
