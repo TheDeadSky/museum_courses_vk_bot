@@ -3,7 +3,7 @@
         {
             "order": 1,
             "text": "Обучение",
-            "callback_data": {"cmd": "get_support"},
+            "callback_data": {"cmd": "courses"},
             "modes": ["prod", "dev"]
         },
         {
