@@ -2,7 +2,7 @@
     "buttons": [
         {
             "order": 1,
-            "text": "Получить поддержку",
+            "text": "Обучение",
             "callback_data": {"cmd": "get_support"},
             "modes": ["prod", "dev"]
         },
@@ -10,13 +10,13 @@
             "order": 2,
             "text": "Поделиться опытом",
             "callback_data": {"cmd": "share_experience"},
-            "modes": ["prod", "dev"]
+            "modes": ["dev"]
         },
         {
             "order": 3,
             "text": "Обратная связь",
             "callback_data": {"cmd": "feedback"},
-            "modes": ["prod", "dev"]
+            "modes": ["dev"]
         },
         {
             "order": 4,
