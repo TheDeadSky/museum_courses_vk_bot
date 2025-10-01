@@ -13,7 +13,7 @@ course_labeler = BotLabeler()
 @callback_handler(course_labeler, cmd="start_course")
 async def start_course(event: MessageEvent):
     await event.send_empty_answer()
-    course = services.courses.get_course(event.payload["course_id"])
+    course = await services.courses.get_course(event.payload["course_id"])
     course_part = await services.courses.get_next_part(event.peer_id, course.id)
 
     if course_part is None:
