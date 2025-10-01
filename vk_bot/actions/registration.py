@@ -22,6 +22,10 @@ async def submit_registration(message: Message | MessageEvent, registration_data
         "vk_id": str(message.peer_id)
     }
 
+    print("=====================================")
+    print("Registration Data:", raw_data)
+    print("=====================================")
+
     registration_data_object = RegistrationData(**raw_data)
 
     result = await services.registration.register(registration_data_object)

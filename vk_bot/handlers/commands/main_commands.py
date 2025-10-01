@@ -35,11 +35,6 @@ async def start_handler(message: Message):
         }
     )
 
-    print({
-        "firstname": user_data.first_name,
-        "lastname": user_data.last_name
-    })
-
     greetings = await get_text_from_db("start_greetings")
 
     await message.answer(
