@@ -1,9 +1,9 @@
 from vkbottle.bot import BotLabeler, MessageEvent
 
 from customs.events import callback_handler
+from menus import HOW_MUCH_YEARS_MENU
 from states.registration import Registration
 from services.api_service import get_text_from_db
-from actions.general import make_skip_menu
 from utils import update_state
 
 
@@ -21,7 +21,7 @@ def init(labeler: BotLabeler):
         how_long_museum_worker_question = await get_text_from_db("how_long_museum_worker")
         await event.send_message(
             how_long_museum_worker_question,
-            keyboard=make_skip_menu(for_state=Registration.HOW_LONG_MUSEUM_WORKER.value)
+            keyboard=HOW_MUCH_YEARS_MENU
         )
 
     @callback_handler(labeler, cmd="no", state=Registration.REGISTRATION_IS_MUSEUM_WORKER.value)

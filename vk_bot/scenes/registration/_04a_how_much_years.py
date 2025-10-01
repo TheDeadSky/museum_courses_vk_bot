@@ -8,7 +8,7 @@ from utils import update_state, get_state_payload
 
 
 def init(labeler: BotLabeler):
-    @callback_handler(labeler, cmd="how_much_years", state=Registration.HOW_LONG_MUSEUM_WORKER.value)
+    @callback_handler(labeler, cmd="how_much_years")
     async def how_long_museum_worker_handler(event: MessageEvent):
         await event.send_empty_answer()
         how_long_museum_worker = YEARS_MAP[event.payload["data"]]
