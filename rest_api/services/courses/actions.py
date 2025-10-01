@@ -59,9 +59,25 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
                 )
             )
 
-        next_course_part = db.execute(course_part_query).scalars().first()
+        course_part_data = db.execute(course_part_query).first()
 
-        course_part = CoursePartSchema.model_validate(next_course_part)
+        course_part = course_part = CoursePartSchema(
+            id=course_part_data[0].id,
+            title=course_part_data[0].title,
+            description=course_part_data[0].description,
+            video_url=course_part_data[0].video_url,
+            image_url=course_part_data[0].image_url,
+            last_part=course_part_data[0].last_part,
+            question_id=course_part_data[1].id,
+            question=course_part_data[1].question,
+            answer_1=course_part_data[1].answer_1,
+            answer_2=course_part_data[1].answer_2,
+            answer_3=course_part_data[1].answer_3,
+            answer_4=course_part_data[1].answer_4,
+            correct_answer=course_part_data[1].correct_answer,
+            correct_message=course_part_data[1].correct_message,
+            incorrect_message=course_part_data[1].incorrect_message
+        )
 
         return course_part
 
