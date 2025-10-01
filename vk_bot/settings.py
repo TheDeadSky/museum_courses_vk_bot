@@ -29,6 +29,10 @@ API_BASE_URL = os.getenv("API_BASE_URL", "http://museum_api:8000")
 if TOKEN is None:
     raise RuntimeError("VK_BOT_TOKEN not found")
 
+print("WEBHOOK_URL:", WEBHOOK_URL)
+print("WEBHOOK_PATH:", WEBHOOK_PATH)
+
+
 museum_api = JsonApiService(API_BASE_URL)
 services = ServicesHub(api_service=museum_api)
 
