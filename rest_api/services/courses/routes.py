@@ -20,11 +20,11 @@ async def course(course_id: int, db: Session = Depends(get_db)) -> CourseInfo:
     return await get_course(course_id, db)
 
 
-@router.get("/courses/{course_id}/part/next/")
+@router.get("/courses/{course_id}/parts/next/")
 async def next_course_part(course_id: int, vk_id: int, db: Session = Depends(get_db)) -> CoursePart:
     return await get_next_course_part(course_id, vk_id, db)
 
 
-@router.get("/courses/{course_id}/part/{part_id}/")
+@router.get("/courses/{course_id}/parts/{part_id}/")
 async def next_course_part(course_id: int, part_id: int, db: Session = Depends(get_db)) -> CoursePart:
     return await get_part_by_id(course_id, part_id, db)
