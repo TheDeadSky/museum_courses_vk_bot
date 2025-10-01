@@ -14,7 +14,7 @@ class MemoryCacheService:
             lifetime = time.time() - data["timestamp"]
             if lifetime > data["max_lifetime"]:
                 return None
-            return data
+            return data["value"]
         return None
 
     def update(self, key: str | int, data: Any, max_lifetime=DEFAULT_LIFETIME) -> None:
