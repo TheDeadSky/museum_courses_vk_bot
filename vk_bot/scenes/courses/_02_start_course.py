@@ -37,7 +37,7 @@ async def start_course(event: MessageEvent):
 
     answers = Keyboard(inline=True).add(
         Callback(
-            label=course_part.a1,
+            label=course_part.answer_1,
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer,
@@ -48,7 +48,7 @@ async def start_course(event: MessageEvent):
         )
     ).row().add(
         Callback(
-            label=course_part.a2,
+            label=course_part.answer_2,
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer,
@@ -59,7 +59,7 @@ async def start_course(event: MessageEvent):
         )
     ).row().add(
         Callback(
-            label=course_part.a3,
+            label=course_part.answer_3,
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer,
@@ -70,7 +70,7 @@ async def start_course(event: MessageEvent):
         )
     ).row().add(
         Callback(
-            label=course_part.a4,
+            label=course_part.answer_4,
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer_id,
