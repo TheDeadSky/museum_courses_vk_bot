@@ -8,7 +8,7 @@ from .schemas import CourseInfo, CoursePart
 router = APIRouter()
 
 
-@router.post("/courses/")
+@router.get("/courses/")
 async def courses_list(db: Session = Depends(get_db)) -> list[CourseInfo]:
     """Get a self-support course for a user"""
     return await get_courses_list(db)
