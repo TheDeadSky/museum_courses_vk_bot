@@ -27,6 +27,8 @@ class CoursePart(BaseModel):
     correct_message: str | None = None
     incorrect_message: str | None = None
 
+    model_config = ConfigDict(from_attributes=True)
+
 
 class CoursePartQuestionAnswer(BaseModel):
     vk_id: int
