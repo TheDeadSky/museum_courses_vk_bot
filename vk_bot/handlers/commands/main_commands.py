@@ -5,8 +5,8 @@ from actions.main_menu import default_main_menu
 from services.api_service import get_text_from_db
 from menus import MAIN_MENU
 from states.registration import Registration
-from settings import state_dispenser, photo_message_uploader, services
-from utils import fetch_binary_data
+from settings import photo_message_uploader, services
+from utils import fetch_binary_data, update_state
 
 commands_labeler = BotLabeler()
 
@@ -26,7 +26,7 @@ async def start_handler(message: Message):
         )
         return
 
-    await state_dispenser.set(
+    await update_state(
         message.peer_id,
         Registration.REGISTRATION_AGREEMENT,
         {
