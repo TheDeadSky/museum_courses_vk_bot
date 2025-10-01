@@ -79,6 +79,10 @@ class CoursesService(AbstractEntityService):
                 }
             )
 
+            print("========================================")
+            print(response)
+            print("========================================")
+
             return CoursePart(**response)
 
         except Exception as e:
