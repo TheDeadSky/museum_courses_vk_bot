@@ -25,8 +25,8 @@ async def on_enter_courses(event: MessageEvent):
         ).get_json()
     )
 
-@callback_handler(courses_enter_labeler, cmd="show_course")
-async def show_course(event: MessageEvent):
+@callback_handler(courses_enter_labeler, cmd="show_course_info")
+async def show_course_info(event: MessageEvent):
     await event.send_empty_answer()
     course = await services.courses.get_course(event.data["course_id"])
 
