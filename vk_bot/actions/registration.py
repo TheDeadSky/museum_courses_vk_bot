@@ -35,6 +35,7 @@ async def submit_registration(message: Message | MessageEvent, registration_data
             GeneralStates.MAIN_MENU
         )
     else:
+        print(result.success, result.message)
         await state_dispenser.set(
             message.peer_id,
             Registration.REGISTRATION_START
