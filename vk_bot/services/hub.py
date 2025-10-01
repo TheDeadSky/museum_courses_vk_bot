@@ -15,9 +15,9 @@ class ServicesHub:
         else:
             self._api_service = JsonApiService(base_url)
 
-        self._registration_service = RegistrationService(self._api_service)
-        self._courses_service = CoursesService(self._api_service)
         self._cache_service = MemoryCacheService()
+        self._registration_service = RegistrationService(self._api_service, self._cache_service)
+        self._courses_service = CoursesService(self._api_service, self._cache_service)
 
     @property
     def api(self) -> JsonApiService:
