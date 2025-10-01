@@ -1,5 +1,7 @@
 import logging
 import os
+
+from dotenv import load_dotenv
 from vkbottle import (
     API,
     BuiltinStateDispenser,
@@ -12,6 +14,8 @@ from vkbottle.callback import BotCallback
 
 from services.api_service import JsonApiService
 from services.hub import ServicesHub
+
+load_dotenv()
 
 APP_NAME = "Museum VK Bot"
 APP_VERSION = "1.0.0"
