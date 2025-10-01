@@ -21,7 +21,7 @@ class CoursePart(BaseModel):
     answer_2: str | None = None
     answer_3: str | None = None
     answer_4: str | None = None
-    correct_answer: str | None = None
+    correct_answer: int | None = None
     correct_message: str | None = None
     incorrect_message: str | None = None
 

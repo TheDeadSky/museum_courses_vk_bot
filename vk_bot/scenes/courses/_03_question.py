@@ -26,7 +26,7 @@ async def start_course(event: MessageEvent):
             part_id=course_part.id,
             part_question_id=course_part.question_id,
             course_id=course.id,
-            answer=answer,
+            answer=str(answer),
         )
     )
 

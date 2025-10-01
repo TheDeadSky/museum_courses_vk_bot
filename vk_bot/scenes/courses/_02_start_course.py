@@ -45,7 +45,7 @@ async def start_course(event: MessageEvent):
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer,
-                "answer": "1",
+                "answer": 1,
                 "part_id": course_part.id,
                 "course_id": course.id
             }
@@ -56,7 +56,7 @@ async def start_course(event: MessageEvent):
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer,
-                "answer": "2",
+                "answer": 2,
                 "part_id": course_part.id,
                 "course_id": course.id
             }
@@ -67,7 +67,7 @@ async def start_course(event: MessageEvent):
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer,
-                "answer": "3",
+                "answer": 3,
                 "part_id": course_part.id,
                 "course_id": course.id
             }
@@ -78,7 +78,7 @@ async def start_course(event: MessageEvent):
             payload={
                 "cmd": "answer_question",
                 "correct_answer": course_part.correct_answer_id,
-                "answer": "4",
+                "answer": 4,
                 "part_id": course_part.id,
                 "course_id": course.id
             }
