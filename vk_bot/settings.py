@@ -1,3 +1,4 @@
+import logging
 import os
 from vkbottle import (
     API,
@@ -27,6 +28,8 @@ API_BASE_URL = os.getenv("API_BASE_URL", "http://museum_api:8000")
 
 if TOKEN is None:
     raise RuntimeError("VK_BOT_TOKEN not found")
+
+logging.info(f"VK_BOT_TOKEN: {TOKEN}")
 
 museum_api = JsonApiService(API_BASE_URL)
 services = ServicesHub(api_service=museum_api)
