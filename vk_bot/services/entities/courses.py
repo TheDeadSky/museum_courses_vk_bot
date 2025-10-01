@@ -70,10 +70,7 @@ class CoursesService(AbstractEntityService):
         return course
 
     async def get_next_part(self, vk_id: int, course_id: int) -> CoursePart | None:
-        part_module = f"{self.module}/{course_id}/parts/next/"
-        print("========================================")
-        print(part_module)
-        print("========================================")
+        part_module = f"{self.module}/{course_id}/parts/next"
         try:
             response = await self._api_service.read(
                 module=part_module,
@@ -81,10 +78,6 @@ class CoursesService(AbstractEntityService):
                     "vk_id": vk_id
                 }
             )
-
-            print("========================================")
-            print(response)
-            print("========================================")
 
             return CoursePart(**response)
 
