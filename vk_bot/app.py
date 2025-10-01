@@ -28,7 +28,7 @@ async def health():
 @app.post("/vk-bot/callback", response_class=PlainTextResponse)
 async def vk_handler(req: Request, background_task: BackgroundTasks):
     data = await req.json()
-    logger.info(f"data: {data}")
+    print(f"data: {data}")
     try:
         data = await req.json()
     except Exception:
