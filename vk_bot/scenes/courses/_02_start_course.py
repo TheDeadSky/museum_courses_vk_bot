@@ -24,12 +24,8 @@ async def start_course(event: MessageEvent):
         return
 
     if course_part.video_url:
-        video = await video_uploader.upload(
-            link=course_part.video_url,
-            peer_id=event.peer_id,
-        )
         await event.send_message("🎥 Видео:")
-        await event.send_message(attachment=video)
+        await event.send_message(attachment=course_part.video_url)
 
     await asyncio.sleep(10)
 
