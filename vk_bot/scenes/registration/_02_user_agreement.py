@@ -4,7 +4,6 @@ from actions.registration import make_registration_button
 from customs.events import callback_handler
 from states.registration import Registration
 from services.api_service import get_text_from_db
-from settings import state_dispenser
 from actions.general import make_yes_no_menu
 from utils import update_state
 
