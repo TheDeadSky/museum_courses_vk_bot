@@ -4,3 +4,4 @@ YEARS_MAP = {
     "f5t10": "От 5 до 10 лет",
     "mt10": "Более 10 лет"
 }
+COURSES_LIST_KEY = "courses_list"

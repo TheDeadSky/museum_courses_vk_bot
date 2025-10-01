@@ -5,7 +5,6 @@ from vkbottle.bot import BotLabeler, MessageEvent
 
 from customs.events import callback_handler
 from menus import TO_MAIN_MENU_BUTTON
-from models.courses import CourseInfo
 from settings import services, video_uploader
 
 course_labeler = BotLabeler()
@@ -14,7 +13,7 @@ course_labeler = BotLabeler()
 @callback_handler(course_labeler, cmd="start_course")
 async def start_course(event: MessageEvent):
     await event.send_empty_answer()
-    course = CourseInfo(**event.data["course"])
+    course = services.courses.get_course(event.data["course_id"])
     course_part = await services.courses.get_next_part(event.peer_id, course.id)
 
     if course_part is None:
@@ -45,10 +44,10 @@ async def start_course(event: MessageEvent):
             label=course_part.a1,
             payload={
                 "cmd": "answer_question",
-                "correct_answer_id": course_part.correct_answer_id,
-                "answer_id": "1",
-                "course_part": course_part.model_dump(),
-                "course": course.model_dump(),
+                "correct_answer": course_part.correct_answer,
+                "answer": "1",
+                "part_id": course_part.id,
+                "course_id": course.id
             }
         )
     ).row().add(
@@ -56,10 +55,10 @@ async def start_course(event: MessageEvent):
             label=course_part.a2,
             payload={
                 "cmd": "answer_question",
-                "correct_answer_id": course_part.correct_answer_id,
-                "answer_id": "2",
-                "course_part": course_part.model_dump(),
-                "course": course.model_dump(),
+                "correct_answer": course_part.correct_answer,
+                "answer": "2",
+                "part_id": course_part.id,
+                "course_id": course.id
             }
         )
     ).row().add(
@@ -67,10 +66,10 @@ async def start_course(event: MessageEvent):
             label=course_part.a3,
             payload={
                 "cmd": "answer_question",
-                "correct_answer_id": course_part.correct_answer_id,
-                "answer_id": "3",
-                "course_part": course_part.model_dump(),
-                "course": course.model_dump(),
+                "correct_answer": course_part.correct_answer,
+                "answer": "3",
+                "part_id": course_part.id,
+                "course_id": course.id
             }
         )
     ).row().add(
@@ -78,10 +77,10 @@ async def start_course(event: MessageEvent):
             label=course_part.a4,
             payload={
                 "cmd": "answer_question",
-                "correct_answer_id": course_part.correct_answer_id,
-                "answer_id": "4",
-                "course_part": course_part.model_dump(),
-                "course": course.model_dump(),
+                "correct_answer": course_part.correct_answer_id,
+                "answer": "4",
+                "part_id": course_part.id,
+                "course_id": course.id
             }
         )
     )

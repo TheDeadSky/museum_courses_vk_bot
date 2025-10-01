@@ -28,13 +28,20 @@ async def on_enter_courses(event: MessageEvent):
 @callback_handler(courses_enter_labeler, cmd="show_course")
 async def show_course(event: MessageEvent):
     await event.send_empty_answer()
-    course = CourseInfo(**event.payload["course"])
+    course = await services.courses.get_course(event.data["course_id"])
+
+    if course is None:
+        await event.send_message(
+            "Не удалось получить информацию о мини-курсе. Попробуйте позже.",
+            keyboard=TO_MAIN_MENU_BUTTON
+        )
+        return
 
     start_course_button = make_one_button_menu(
-        text="Продолжить курс" if course.is_started else "Начать курс",
+        text="Пройти мини-курс",
         payload={
             "cmd": "start_course",
-            "course": course.model_dump(),
+            "course_id": course.id
         }
     )
 

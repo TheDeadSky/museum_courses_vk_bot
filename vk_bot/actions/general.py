@@ -73,7 +73,7 @@ def make_user_agreement_menu(for_state: str | None = None):
     ]).get_json()
 
 
-def make_rating_menu(for_state: str | None = None):
+def make_rating_menu(course_id: int, for_state: str | None = None):
     keyboard = Keyboard(inline=True)
     schema = []
 
@@ -81,7 +81,7 @@ def make_rating_menu(for_state: str | None = None):
         schema.append([
             KeyboardButtonSchema(
                 label=str(i),
-                payload={"cmd": "rating", "rate": i},
+                payload={"cmd": "rating", "rate": i, "course_id": course_id},
                 type="callback"
             ).get_json()
         ])

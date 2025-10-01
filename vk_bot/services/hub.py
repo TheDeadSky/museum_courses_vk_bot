@@ -1,6 +1,7 @@
 from services.api_service import JsonApiService
 from services.entities.courses import CoursesService
 from services.entities.registration import RegistrationService
+from services.memory_cache import MemoryCacheService
 
 
 class ServicesHub:
@@ -16,10 +17,15 @@ class ServicesHub:
 
         self._registration_service = RegistrationService(self._api_service)
         self._courses_service = CoursesService(self._api_service)
+        self._cache_service = MemoryCacheService()
 
     @property
     def api(self) -> JsonApiService:
         return self._api_service
+
+    @property
+    def cache(self) -> MemoryCacheService:
+        return self._cache_service
 
     @property
     def registration(self) -> RegistrationService:

@@ -32,7 +32,7 @@ class JsonApiService:
 
         return response
 
-    async def read(self, *, module: str, data: dict | None = None) -> dict:
+    async def read(self, *, module: str, data: dict | None = None) -> dict | list:
         response = await HttpService.get(
             url=f"{self.base_url}/{module}/",
             params=data
@@ -40,7 +40,7 @@ class JsonApiService:
 
         return response
 
-    async def update(self, *, module: str, data: dict) -> dict:
+    async def update(self, *, module: str, data: dict) -> dict | list:
         """
         Not implemented yet.
         """
