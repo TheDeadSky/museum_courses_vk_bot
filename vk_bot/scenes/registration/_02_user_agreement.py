@@ -18,7 +18,7 @@ def init(labeler: BotLabeler):
             )
         )
 
-    @callback_handler(labeler, cmd="not_agree", state=Registration.REGISTRATION_AGREEMENT.value)
+    @callback_handler(labeler, cmd="agree", state=Registration.REGISTRATION_AGREEMENT.value)
     async def confirm(event: MessageEvent):
         await state_dispenser.set(
             event.peer_id,
