@@ -30,7 +30,7 @@ class JsonApiService:
             json=data if as_json and data else None,
         )
 
-        return await self._make_response(response)
+        return response
 
     async def read(self, *, module: str, data: dict | None = None) -> dict:
         response = await HttpService.get(
@@ -38,7 +38,7 @@ class JsonApiService:
             params=data
         )
 
-        return await self._make_response(response)
+        return response
 
     async def update(self, *, module: str, data: dict) -> dict:
         """
@@ -51,12 +51,6 @@ class JsonApiService:
         Not implemented yet.
         """
         raise NotImplementedError()
-
-    async def _make_response(self, response: aiohttp.ClientResponse) -> dict:
-        if response.status in [200, 400]:
-            return await response.json()
-
-        raise Exception(f"ApiServiceError: {response.status} | {await response.text()}")
 
 
 async def get_self_support_course_part(vk_id: str) -> SelfSupportCourseResponse:

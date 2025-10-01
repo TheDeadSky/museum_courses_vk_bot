@@ -12,14 +12,14 @@ class HttpService:
         *,
         params: None | str | ParamsMapping | ParamsSequence = None,
         **kwargs
-    ) -> aiohttp.ClientResponse:
+    ) -> dict:
         """
         Makes a GET request to the url.
         It supports all arguments of 'aiohttp.ClientSession.get'.
         """
         async with aiohttp.ClientSession() as session:
             async with session.get(url, params=params, **kwargs) as response:
-                return response
+                return await response.json()
 
     @staticmethod
     async def post(
@@ -28,11 +28,11 @@ class HttpService:
         params: None | str | ParamsMapping | ParamsSequence = None,
         json: Any = None,
         **kwargs
-    ):
+    ) -> dict:
         """
         Makes a POST request to the url.
         It supports all arguments of 'aiohttp.ClientSession.post'.
         """
         async with aiohttp.ClientSession() as session:
             async with session.post(url=url, params=params, json=json) as response:
-                return response
+                return await response.json()
