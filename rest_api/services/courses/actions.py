@@ -78,6 +78,8 @@ async def get_part_by_id(course_id: int, part_id: int, db: Session) -> CoursePar
         )
     )
 
+    print(str(course_part_query))
+
     course_part = db.execute(course_part_query).scalars().first()
 
     return course_part
