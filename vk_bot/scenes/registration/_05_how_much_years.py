@@ -16,7 +16,7 @@ def init(labeler: BotLabeler):
             event.peer_id,
             Registration.REGISTRATION_SUBMIT,
             payload={
-                "how_long_museum_worker": YEARS_MAP[how_long_museum_worker]
+                "how_long_museum_worker": how_long_museum_worker
             }
         )
 
