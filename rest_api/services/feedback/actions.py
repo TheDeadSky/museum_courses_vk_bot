@@ -12,7 +12,7 @@ from .schemas import Feedback, FeedbackAnswerData, FeedbackListResponse, Incomin
 
 
 async def save_user_feedback(feedback: IncomingFeedback, db: Session):
-    user = get_user_by_vk_id(db, feedback.sm_id)
+    user = get_user_by_vk_id(db, feedback.vk_id)
 
     user_question = UserQuestion(
         user_id=user.id,
@@ -97,7 +97,7 @@ async def answer_feedback(answer_data: FeedbackAnswerData, db: Session):
 async def send_answer_to_user(feedback_answer: FeedbackAnswerData, db: Session):
     print("feedback_answer", feedback_answer)
 
-    user = db.query(User).filter(User.id == feedback_answer.user_id).first()
+    user: None | User = db.query(User).filter(User.id == feedback_answer.user_id).first()
 
     if not user:
         return BaseResponse(
@@ -116,7 +116,7 @@ async def send_answer_to_user(feedback_answer: FeedbackAnswerData, db: Session):
     print(
         "send_answer_to_user",
         {
-            "sm_id": user.telegram_id,
+            "vk_id": user.vk_id,
             "answer_text": feedback_answer.answer,
             "feedback_text": feedback.question
         }
@@ -126,7 +126,7 @@ async def send_answer_to_user(feedback_answer: FeedbackAnswerData, db: Session):
         async with session.post(
             "http://museum_bot:9000/api/send-feedback-answer",
             json={
-                "sm_id": user.telegram_id,
+                "vk_id": user.vk_id,
                 "answer_text": feedback_answer.answer,
                 "feedback_text": feedback.question
             }

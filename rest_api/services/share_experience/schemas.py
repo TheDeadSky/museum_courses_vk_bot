@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class ShareExperienceData(BaseModel):
-    sm_id: str
+    vk_id: int
     experience: str
     experience_type: str = "text"
     publish: bool = True

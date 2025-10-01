@@ -6,7 +6,7 @@ from schemas import BaseResponse
 
 
 class IncomingFeedback(BaseModel):
-    sm_id: str = Field(description="User's social media ID.")
+    vk_id: str = Field(description="User's social media ID.")
     feedback: str = Field(description="User's feedback.")
 
 

@@ -26,10 +26,10 @@ except ImportError:
     sentry_imported = False
 
 
-async def load_self_support_course(sm_id: int, db: Session) -> SelfSupportCourseResponse | BaseResponse:
-    user = get_user_by_vk_id(db, sm_id)
+async def load_self_support_course(vk_id: int, db: Session) -> SelfSupportCourseResponse | BaseResponse:
+    user = get_user_by_vk_id(db, vk_id)
     if not user:
-        raise HTTPException(status_code=404, detail=f"User not found by sm_id({sm_id})")
+        raise HTTPException(status_code=404, detail=f"User not found by vk_id({vk_id})")
 
     course = db.query(Course).first()
 
@@ -104,9 +104,9 @@ async def load_self_support_course(sm_id: int, db: Session) -> SelfSupportCourse
 
 
 async def save_self_support_course_answer(answer_data: CourseUserAnswer, db: Session) -> BaseResponse:
-    user = get_user_by_vk_id(db, answer_data.sm_id)
+    user = get_user_by_vk_id(db, answer_data.vk_id)
     if not user:
-        raise HTTPException(status_code=404, detail=f"User not found by sm_id({answer_data.sm_id})")
+        raise HTTPException(status_code=404, detail=f"User not found by vk_id({answer_data.vk_id})")
 
     user_progress = UserCourseProgress(
         user_id=user.id,
@@ -121,79 +121,3 @@ async def save_self_support_course_answer(answer_data: CourseUserAnswer, db: Ses
         success=True,
         message="Ответ сохранен"
     )
-
-
-async def new_course_part_notify(db: Session) -> CourseNotificationResponse:
-    try:
-        users_with_progress_query = select(
-            User.telegram_id
-        ).distinct().join(
-            UserCourseProgress, User.id == UserCourseProgress.user_id
-        ).where(
-            or_(
-                User.telegram_id.isnot(None)
-            )
-        )
-
-        users_with_progress = db.execute(users_with_progress_query).scalars().all()
-        users_with_progress_tg_ids = []
-        users_with_progress_vk_ids = []
-
-        for sm_ids in users_with_progress:
-            tg_id = sm_ids
-            vk_id = None
-            if tg_id:
-                users_with_progress_tg_ids.append(tg_id)
-            if vk_id:
-                users_with_progress_vk_ids.append(vk_id)
-
-        users_without_progress_query = select(
-            User.telegram_id
-        ).where(
-            and_(
-                or_(
-                    User.telegram_id.isnot(None),
-                    User.vk_id.isnot(None)
-                ),
-                ~User.id.in_(
-                    select(UserCourseProgress.user_id).distinct()
-                )
-            )
-        )
-
-        users_without_progress = db.execute(users_without_progress_query).scalars().all()
-        users_without_progress_tg_ids = []
-        users_without_progress_vk_ids = []
-
-        for sm_ids in users_without_progress:
-            tg_id = sm_ids
-            vk_id = None
-            if tg_id:
-                users_without_progress_tg_ids.append(tg_id)
-            if vk_id:
-                users_without_progress_vk_ids.append(vk_id)
-
-        tg_response = await send_notifications_tg(users_with_progress_tg_ids, users_without_progress_tg_ids)
-
-        try:
-            vk_response = await send_notifications_vk(users_with_progress_vk_ids, users_without_progress_vk_ids)
-        except Exception as e:
-            logging.error("", e)
-            vk_response = None
-
-        return CourseNotificationResponse(
-            success=True,
-            message="All messages was send to bots",
-            tg_response=tg_response,
-            vk_response=vk_response,
-        )
-
-    except Exception as e:
-        if sentry_imported:
-            capture_exception(e)
-        return CourseNotificationResponse(
-            success=False,
-            message=f"Error getting user notifications: {str(e)}",
-            tg_response=None,
-            vk_response=None,
-        )

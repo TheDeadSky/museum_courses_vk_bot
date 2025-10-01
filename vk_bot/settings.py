@@ -27,7 +27,7 @@ WEBAPP_HOST = os.getenv("WEBAPP_HOST", "0.0.0.0")
 WEBAPP_PORT = int(os.getenv("WEBAPP_PORT", "9001"))
 VK_SECRET_KEY = os.getenv("VK_SECRET_KEY", "")
 VK_CONFIRMATION_CODE = os.getenv("VK_CONFIRMATION_CODE", "")
-API_BASE_URL = os.getenv("API_BASE_URL", "http://museum_api:8000")
+API_BASE_URL = os.getenv("API_BASE_URL", "http://rest_api:8000")
 
 
 if TOKEN is None:

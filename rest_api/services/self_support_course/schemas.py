@@ -34,14 +34,4 @@ class SelfSupportCourseResponse(BaseResponse):
 class CourseUserAnswer(BaseModel):
     answer: str | None = None
     part_id: int
-    sm_id: int
-
-
-class CourseNotificationSmResponse(BaseResponse):
-    users_with_progress: list[str]
-    users_without_progress: list[str]
-
-
-class CourseNotificationResponse(BaseResponse):
-    tg_response: CourseNotificationSmResponse | None = None
-    vk_response: CourseNotificationSmResponse | None = None
+    vk_id: int
