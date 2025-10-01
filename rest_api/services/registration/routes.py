@@ -8,13 +8,13 @@ from .schemas import RegistrationData, RegistrationResponse, RegistrationCheckRe
 router = APIRouter()
 
 
-@router.get("/registration")
+@router.get("/registration/")
 async def is_registered(vk_id: int, db: Session = Depends(get_db)) -> RegistrationCheckResponse:
     """Check if a user is registered by email"""
     return await is_user_registered(vk_id, db)
 
 
-@router.post("/registration")
+@router.post("/registration/")
 async def register(registration_data: RegistrationData, db: Session = Depends(get_db)) -> RegistrationResponse:
     """Register a new user"""
     try:
