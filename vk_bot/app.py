@@ -1,7 +1,6 @@
-import logging
-
 from contextlib import asynccontextmanager
 from fastapi.responses import PlainTextResponse
+from vkbottle.modules import logger
 
 from bot import bot
 from fastapi import BackgroundTasks, FastAPI, Request, Response
@@ -13,7 +12,7 @@ secret_key: str = ""
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logging.info("Setup webhook")
+    logger.info("Setup webhook")
     global confirmation_code, secret_key
     confirmation_code, secret_key = await bot.setup_webhook()
     yield
@@ -29,15 +28,15 @@ async def health():
 @app.post("/vk-bot/callback", response_class=PlainTextResponse)
 async def vk_handler(req: Request, background_task: BackgroundTasks):
     data = await req.json()
-    logging.info(f"data: {data}")
+    logger.info(f"data: {data}")
     try:
         data = await req.json()
     except Exception:
-        logging.warning("Empty request")
+        logger.warning("Empty request")
         return Response("not today", status_code=403)
 
     if data["type"] == "confirmation":
-        logging.info("Send confirmation token: {}", confirmation_code)
+        logger.info("Send confirmation token: {}", confirmation_code)
         return Response(confirmation_code)
 
     if data["secret"] == secret_key:
