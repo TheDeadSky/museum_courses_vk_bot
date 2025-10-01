@@ -8,5 +8,5 @@ course_feedback_labeler = BotLabeler()
 
 @callback_handler(course_feedback_labeler, cmd="rate_course")
 async def rate_course(event: MessageEvent):
+    await event.send_empty_answer()
     # event.payload
-    pass

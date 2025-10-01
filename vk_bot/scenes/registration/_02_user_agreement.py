@@ -10,6 +10,7 @@ from actions.general import make_yes_no_menu
 def init(labeler: BotLabeler):
     @callback_handler(labeler, cmd="not_agree", state=Registration.REGISTRATION_AGREEMENT.value)
     async def user_not_agree(event: MessageEvent):
+        await event.send_empty_answer()
         user_not_agree_message = await get_text_from_db("user_not_agree_message")
         await event.send_message(
             user_not_agree_message,
@@ -20,6 +21,7 @@ def init(labeler: BotLabeler):
 
     @callback_handler(labeler, cmd="agree", state=Registration.REGISTRATION_AGREEMENT.value)
     async def confirm(event: MessageEvent):
+        await event.send_empty_answer()
         await state_dispenser.set(
             event.peer_id,
             Registration.REGISTRATION_IS_MUSEUM_WORKER

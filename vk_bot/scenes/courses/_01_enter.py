@@ -13,6 +13,7 @@ courses_enter_labeler = BotLabeler()
 
 @callback_handler(courses_enter_labeler, cmd="courses")
 async def on_enter_courses(event: MessageEvent):
+    await event.send_empty_answer()
     about_courses_message = await get_text_from_db("about_courses_message")
     courses = await services.courses.list(event.peer_id)
 
@@ -26,6 +27,7 @@ async def on_enter_courses(event: MessageEvent):
 
 @callback_handler(courses_enter_labeler, cmd="show_course")
 async def show_course(event: MessageEvent):
+    await event.send_empty_answer()
     course = CourseInfo(**event.payload["course"])
 
     start_course_button = make_one_button_menu(

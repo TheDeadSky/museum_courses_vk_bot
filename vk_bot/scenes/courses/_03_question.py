@@ -12,6 +12,8 @@ course_question_labeler = BotLabeler()
 
 @callback_handler(course_question_labeler, cmd="answer_question")
 async def start_course(event: MessageEvent):
+    await event.send_empty_answer()
+
     event_payload = event.payload
     course = CourseInfo(**event_payload["course"])
     course_part = CoursePart(**event_payload["course_part"])

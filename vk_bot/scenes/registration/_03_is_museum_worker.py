@@ -10,6 +10,7 @@ from utils import update_state
 def init(labeler: BotLabeler):
     @callback_handler(labeler, cmd="yes", state=Registration.REGISTRATION_IS_MUSEUM_WORKER.value)
     async def yes(event: MessageEvent):
+        await event.send_empty_answer()
         await update_state(
             event.peer_id,
             Registration.HOW_LONG_MUSEUM_WORKER,
@@ -25,6 +26,7 @@ def init(labeler: BotLabeler):
 
     @callback_handler(labeler, cmd="no", state=Registration.REGISTRATION_IS_MUSEUM_WORKER.value)
     async def no(event: MessageEvent):
+        await event.send_empty_answer()
         await update_state(
             event.peer_id,
             Registration.HOW_LONG_MUSEUM_WORKER,
