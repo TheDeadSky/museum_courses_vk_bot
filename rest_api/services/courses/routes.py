@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from db.database import get_db
-from .actions import get_courses_list, get_next_course_part, get_part_by_id
+from .actions import get_courses_list, get_next_course_part, get_part_by_id, get_course
 from .schemas import CourseInfo, CoursePart
 
 router = APIRouter()
@@ -15,7 +15,7 @@ async def courses_list(db: Session = Depends(get_db)) -> list[CourseInfo]:
 
 
 @router.get("/courses/{course_id}/}")
-async def courses_list(course_id: int, db: Session = Depends(get_db)) -> list[CourseInfo]:
+async def course(course_id: int, db: Session = Depends(get_db)) -> CourseInfo:
     """Get a self-support course for a user"""
     return await get_course(course_id, db)
 
