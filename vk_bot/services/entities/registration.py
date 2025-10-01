@@ -18,7 +18,7 @@ class RegistrationService(AbstractEntityService):
             return RegistrationResponse(**response)
 
         except Exception as e:
-            logging.error(f"RegistrationError for '{registration_data.vk_id}': {e}")
+            print(f"RegistrationError for '{registration_data.vk_id}': {e}")
             return RegistrationResponse(success=False, message="Не удалось зарегистрироваться.")
 
     async def check(self, vk_id: str) -> RegistrationCheckResponse:
@@ -32,5 +32,5 @@ class RegistrationService(AbstractEntityService):
 
             return RegistrationCheckResponse(**resource)
         except Exception as e:
-            logging.error(f"RegistrationError for '{vk_id}': {e}")
+            print(f"RegistrationError for '{vk_id}': {e}")
             return RegistrationCheckResponse(is_registered=False)

@@ -27,12 +27,10 @@ async def health():
 
 @app.post("/vk-bot/callback", response_class=PlainTextResponse)
 async def vk_handler(req: Request, background_task: BackgroundTasks):
-    data = await req.json()
-    print(f"data: {data}")
     try:
         data = await req.json()
     except Exception:
-        logger.warning("Empty request")
+        print("Empty request")
         return Response("not today", status_code=403)
 
     if data["type"] == "confirmation":
