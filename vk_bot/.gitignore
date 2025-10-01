@@ -93,4 +93,7 @@ settings.local.py
 # Backup files
 *.bak
 *.backup
-*.old 
+*.old
+
+# App Folders
+templates/
