@@ -86,7 +86,7 @@ async def get_part_by_id(course_id: int, part_id: int, db: Session) -> CoursePar
 
     print("================== Dict ==================")
     print(course_part_data)
-    print(course_part_data.values())
+    # print(course_part_data._data)
     print("========================================")
 
     course_part = CoursePartSchema.model_validate(course_part_data)
