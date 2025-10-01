@@ -18,6 +18,15 @@ async def get_courses_list(db: Session) -> list[CourseInfo]:
     return courses_list
 
 
+async def get_course(course_id: int, db: Session) -> CourseInfo:
+    course = db.query(Course).filter(Course.id == course_id).first()
+
+    if course is None:
+        raise Exception(f"Course {course_id} not found")
+
+    return CourseInfo.model_validate(course)
+
+
 async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> CoursePartSchema:
     user: User | None = db.query(User).filter(vk_id=vk_id).first()
 
@@ -57,3 +66,18 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
         return course_part
 
     raise Exception(f"User with vk_id={vk_id} not found")
+
+
+async def get_part_by_id(course_id: int, part_id: int, db: Session) -> CoursePartSchema:
+    course_part_query = (
+        select(CoursePart, PartQuestion)
+        .join(CoursePart.questions)
+        .where(
+            CoursePart.course_id == course_id,
+            CoursePart.id == part_id
+        )
+    )
+
+    course_part = db.execute(course_part_query).scalars().first()
+
+    return course_part
