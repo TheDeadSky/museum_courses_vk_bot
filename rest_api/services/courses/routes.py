@@ -14,7 +14,7 @@ async def courses_list(db: Session = Depends(get_db)) -> list[CourseInfo]:
     return await get_courses_list(db)
 
 
-@router.get("/courses/{course_id}/}")
+@router.get("/courses/{course_id}/")
 async def course(course_id: int, db: Session = Depends(get_db)) -> CourseInfo:
     """Get a self-support course for a user"""
     return await get_course(course_id, db)

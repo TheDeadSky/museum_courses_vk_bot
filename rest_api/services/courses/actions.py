@@ -28,7 +28,7 @@ async def get_course(course_id: int, db: Session) -> CourseInfo:
 
 
 async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> CoursePartSchema:
-    user: User | None = db.query(User).filter(vk_id=vk_id).first()
+    user: User | None = db.query(User).filter(User.vk_id == vk_id).first()
 
     if user:
         last_passed_part_query = (
