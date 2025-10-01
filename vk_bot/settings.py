@@ -29,8 +29,6 @@ API_BASE_URL = os.getenv("API_BASE_URL", "http://museum_api:8000")
 if TOKEN is None:
     raise RuntimeError("VK_BOT_TOKEN not found")
 
-logging.info(f"VK_BOT_TOKEN: {TOKEN}")
-
 museum_api = JsonApiService(API_BASE_URL)
 services = ServicesHub(api_service=museum_api)
 
@@ -47,8 +45,8 @@ photo_message_uploader = PhotoMessageUploader(
     api=api
 )
 callback = BotCallback(
-    url="https://deadsky-dev.ru/vk-bot/callback",
-    title="my server",
+    url=WEBHOOK_URL,
+    title="My Webhook",
     secret_key=VK_SECRET_KEY,
     api=api,
     group_id=GROUP_ID
