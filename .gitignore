@@ -132,5 +132,6 @@ yarn-error.log*
 config.local.py
 settings.local.py
 
-# vk_bot dirs
+# vk_bot files & dirs
+vk_bot/templates/
 templates/
