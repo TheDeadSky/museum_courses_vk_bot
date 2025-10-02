@@ -1,11 +1,11 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from db.models import Course, CoursePart, PartQuestion, UserCourseProgress, User
+from db.models import Course, CoursePart, PartQuestion, UserCourseProgress, User, UserCourseFeedback
 from db.utils import get_user_by_vk_id
 from schemas import BaseResponse
 
-from .schemas import CourseInfo, CoursePart as CoursePartSchema, CoursePartQuestionAnswer
+from .schemas import CourseInfo, CoursePart as CoursePartSchema, CoursePartQuestionAnswer, CourseFeedback
 
 
 async def get_courses_list(db: Session) -> list[CourseInfo]:
@@ -64,7 +64,7 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
 
         course_part_data = db.execute(course_part_query).first()
 
-        course_part = course_part = CoursePartSchema(
+        course_part = CoursePartSchema(
             id=course_part_data[0].id,
             title=course_part_data[0].title,
             description=course_part_data[0].description,
@@ -135,3 +135,20 @@ async def save_answer(answer: CoursePartQuestionAnswer, db: Session):
     db.flush()
 
     return BaseResponse(success=True, message="Прогресс сохранён")
+
+
+async def save_course_feedback(feedback: CourseFeedback, db: Session):
+    user = get_user_by_vk_id(db, feedback.vk_id)
+
+    feedback_to_save = UserCourseFeedback(
+        user=user,
+        course_id=feedback.course_id,
+        rate=feedback.rate,
+        rate_description=feedback.rate_description,
+        public_feedback=feedback.public_feedback
+    )
+
+    db.add(feedback_to_save)
+    db.commit()
+
+    return BaseResponse(success=True, message="Отзыв записан")

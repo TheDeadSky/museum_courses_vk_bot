@@ -3,8 +3,9 @@ from sqlalchemy.orm import Session
 
 from db.database import get_db
 from schemas import BaseResponse
-from .actions import get_courses_list, get_next_course_part, get_part_by_id, get_course, save_answer
-from .schemas import CourseInfo, CoursePart, CoursePartQuestionAnswer
+from .actions import get_courses_list, get_next_course_part, get_part_by_id, get_course, save_answer, \
+    save_course_feedback
+from .schemas import CourseInfo, CoursePart, CoursePartQuestionAnswer, CourseFeedback
 
 router = APIRouter()
 
@@ -35,3 +36,7 @@ async def next_course_part(course_id: int, part_id: int, db: Session = Depends(g
 async def next_course_part(answer: CoursePartQuestionAnswer, db: Session = Depends(get_db)) -> BaseResponse:
     return await save_answer(answer, db)
 
+
+@router.put("/courses/{course_id}/feedback/")
+async def course_feedback(feedback: CourseFeedback, db: Session = Depends(get_db)) -> BaseResponse:
+    return await save_course_feedback(feedback, db)

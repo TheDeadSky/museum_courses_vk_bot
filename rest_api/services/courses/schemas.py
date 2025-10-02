@@ -36,3 +36,11 @@ class CoursePartQuestionAnswer(BaseModel):
     part_id: int
     part_question_id: int
     answer: str
+
+
+class CourseFeedback(BaseModel):
+    course_id: int
+    vk_id: int
+    rate: int
+    rate_description: str
+    public_feedback: str

@@ -5,7 +5,7 @@ from sqlalchemy import (
     DateTime,
     Text,
     ForeignKey,
-    JSON, func
+    func
 )
 from sqlalchemy.orm import (
     DeclarativeBase,
@@ -14,7 +14,6 @@ from sqlalchemy.orm import (
     relationship,
 )
 from typing import List, Optional
-from datetime import datetime
 
 
 class Base(DeclarativeBase):
@@ -42,6 +41,11 @@ class User(Base):
         "UserCourseProgress", back_populates="user"
     )
 
+    courses_feedbacks: List["UserCourseFeedback"] = relationship(
+        "UserCourseFeedback",
+        back_populates="user"
+    )
+
 
 class Course(Base):
     __tablename__ = "courses"
@@ -52,6 +56,11 @@ class Course(Base):
 
     parts: Mapped[List["CoursePart"]] = relationship(
         "CoursePart", back_populates="course"
+    )
+
+    users_feedbacks: List["UserCourseFeedback"] = relationship(
+        "UserCourseFeedback",
+        back_populates="course"
     )
 
 
@@ -111,6 +120,26 @@ class UserCourseProgress(Base):
     )
     part: Mapped["CoursePart"] = relationship(
         "CoursePart", back_populates="progress"
+    )
+
+
+class UserCourseFeedback(Base):
+    __tablename__ = "users_course_feedbacks"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    course_id: Mapped[int] = mapped_column(ForeignKey("courses.id"))
+    rate: Mapped[int] = mapped_column(Integer)
+    rate_description: Mapped[str] = mapped_column(Text)
+    public_feedback: Mapped[str] = mapped_column(Text)
+    date: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
+
+    user: Mapped["User"] = relationship(
+        "User", back_populates="courses_feedbacks"
+    )
+
+    course: Mapped["Course"] = relationship(
+        "Course", back_populates="users_feedbacks"
     )
 
 
