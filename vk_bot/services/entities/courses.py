@@ -1,5 +1,5 @@
 from constants import COURSES_LIST_KEY
-from models.courses import CourseInfo, CoursePart, CoursePartQuestionAnswer
+from models.courses import CourseInfo, CoursePart, CoursePartQuestionAnswer, CourseFeedback
 from services.entities.base import AbstractEntityService
 
 
@@ -97,4 +97,18 @@ class CoursesService(AbstractEntityService):
 
         except Exception as e:
             print(f"CoursesServiceError for '{answer.vk_id}': {e}")
+            return False
+
+    async def send_feedback(self, feedback: CourseFeedback) -> bool:
+        feedback_module = f"{self.module}/{feedback.course_id}/feedback"
+
+        try:
+            await self._api_service.create(
+                module=feedback_module,
+                data=feedback.model_dump()
+            )
+
+            return True
+        except Exception as e:
+            print(f"CoursesServiceError for '{feedback.vk_id}': {e}")
             return False
