@@ -2,8 +2,10 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from db.models import Course, CoursePart, PartQuestion, UserCourseProgress, User
+from db.utils import get_user_by_vk_id
+from schemas import BaseResponse
 
-from .schemas import CourseInfo, CoursePart as CoursePartSchema
+from .schemas import CourseInfo, CoursePart as CoursePartSchema, CoursePartQuestionAnswer
 
 
 async def get_courses_list(db: Session) -> list[CourseInfo]:
@@ -115,3 +117,20 @@ async def get_part_by_id(course_id: int, part_id: int, db: Session) -> CoursePar
     )
 
     return course_part
+
+
+async def save_answer(answer: CoursePartQuestionAnswer, db: Session):
+    user = get_user_by_vk_id(db, answer.vk_id)
+
+    progress = UserCourseProgress(
+        user=user,
+        part_id=answer.part_id,
+        part_question_id=answer.part_question_id,
+        answer=answer.answer
+    )
+
+    db.add(progress)
+    db.commit()
+    db.flush()
+
+    return BaseResponse(success=True, message="Прогресс сохранён")

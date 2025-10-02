@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from db.database import get_db
-from .actions import get_courses_list, get_next_course_part, get_part_by_id, get_course
-from .schemas import CourseInfo, CoursePart
+from schemas import BaseResponse
+from .actions import get_courses_list, get_next_course_part, get_part_by_id, get_course, save_answer
+from .schemas import CourseInfo, CoursePart, CoursePartQuestionAnswer
 
 router = APIRouter()
 
@@ -28,3 +29,9 @@ async def next_course_part(course_id: int, vk_id: int, db: Session = Depends(get
 @router.get("/courses/{course_id}/parts/{part_id}/")
 async def next_course_part(course_id: int, part_id: int, db: Session = Depends(get_db)) -> CoursePart:
     return await get_part_by_id(course_id, part_id, db)
+
+
+@router.post("/courses/{course_id}/parts/{part_id}/")
+async def next_course_part(answer: CoursePartQuestionAnswer, db: Session = Depends(get_db)) -> BaseResponse:
+    return await save_answer(answer, db)
+
