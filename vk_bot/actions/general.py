@@ -81,7 +81,7 @@ def make_rating_menu(course_id: int, for_state: str | None = None):
         schema.append([
             KeyboardButtonSchema(
                 label=str(i),
-                payload={"cmd": "rating", "rate": i, "course_id": course_id},
+                payload={"cmd": "rate_course", "rate": i, "course_id": course_id},
                 type="callback"
             ).get_json()
         ])
