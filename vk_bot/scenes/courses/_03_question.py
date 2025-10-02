@@ -48,7 +48,7 @@ async def start_course(event: MessageEvent):
         )
 
         await event.send_message(
-            message=course_part.correct_text if answer == correct_answer else course_part.incorrect_text,
+            message=course_part.correct_message if answer == correct_answer else course_part.incorrect_message,
             keyboard=merge_inline_menus(
                 merge_inline_menus(
                     next_part_button,
