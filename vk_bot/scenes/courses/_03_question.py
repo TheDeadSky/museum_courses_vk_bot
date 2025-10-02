@@ -30,7 +30,7 @@ async def start_course(event: MessageEvent):
         )
     )
 
-    if course_part.is_last_part:
+    if course_part.last_part:
         await event.send_message(
             "Благодарю Вас за прохождение курса! Пожалуйста, оцените курс:",
             keyboard=make_rating_menu(course.id)
