@@ -15,4 +15,5 @@ def init(labeler: BotLabeler):
                 "occupation": message.text
             }
         )
-        await submit_registration(message, await get_state_payload(message.peer_id))
+        registration_data = await get_state_payload(message.peer_id)
+        await submit_registration(message, registration_data)

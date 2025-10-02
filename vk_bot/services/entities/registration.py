@@ -15,6 +15,9 @@ class RegistrationService(AbstractEntityService):
                 data=registration_data.model_dump()
             )
 
+            print("============ Response ============")
+            print(response)
+            print("==================================")
             return RegistrationResponse(**response)
 
         except Exception as e:
