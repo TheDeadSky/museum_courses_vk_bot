@@ -1,3 +1,5 @@
+import asyncio
+
 from vkbottle.bot import BotLabeler, MessageEvent
 
 from actions.general import make_rating_menu
@@ -30,30 +32,37 @@ async def start_course(event: MessageEvent):
         )
     )
 
+    print(course_part.model_dump())
+
     if course_part.last_part:
+        await event.send_message(
+            message=course_part.correct_message if answer == correct_answer else course_part.incorrect_message,
+        )
+        await asyncio.sleep(2)
         await event.send_message(
             "Благодарю Вас за прохождение курса! Пожалуйста, оцените курс:",
             keyboard=make_rating_menu(course.id)
         )
-    else:
-        next_part_button = make_one_button_menu("Перейти к следующему уроку", {
-            "cmd": "start_course",
-            "course_id": course.id
-        })
-        courses_button = make_one_button_menu(
-            "Выбор курса",
-            {
-                "cmd": "courses"
-            }
-        )
+        return
 
-        await event.send_message(
-            message=course_part.correct_message if answer == correct_answer else course_part.incorrect_message,
-            keyboard=merge_inline_menus(
-                merge_inline_menus(
-                    next_part_button,
-                    TO_MAIN_MENU_BUTTON
-                ),
-                courses_button
-            ).get_json()
-        )
+    next_part_button = make_one_button_menu("Перейти к следующему уроку", {
+        "cmd": "start_course",
+        "course_id": course.id
+    })
+    courses_button = make_one_button_menu(
+        "Выбор курса",
+        {
+            "cmd": "courses"
+        }
+    )
+
+    await event.send_message(
+        message=course_part.correct_message if answer == correct_answer else course_part.incorrect_message,
+        keyboard=merge_inline_menus(
+            merge_inline_menus(
+                next_part_button,
+                TO_MAIN_MENU_BUTTON
+            ),
+            courses_button
+        ).get_json()
+    )
