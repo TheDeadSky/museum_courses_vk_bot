@@ -1,6 +1,7 @@
 from vkbottle.bot import BotLabeler, Message, MessageEvent
 
 from customs.events import callback_handler
+from menus import TO_MAIN_MENU_BUTTON
 from models.courses import CourseFeedback
 from services import get_text_from_db
 from settings import services
@@ -65,4 +66,4 @@ async def public_feedback_handler(message: Message):
     await services.courses.send_feedback(course_feedback)
 
     course_final_thanks = await get_text_from_db("course_final_thanks")
-    await message.answer(course_final_thanks)
+    await message.answer(course_final_thanks, keyboard=TO_MAIN_MENU_BUTTON)
