@@ -41,7 +41,7 @@ class User(Base):
         "UserCourseProgress", back_populates="user"
     )
 
-    courses_feedbacks: List["UserCourseFeedback"] = relationship(
+    courses_feedbacks: Mapped[List["UserCourseFeedback"]] = relationship(
         "UserCourseFeedback",
         back_populates="user"
     )
@@ -58,7 +58,7 @@ class Course(Base):
         "CoursePart", back_populates="course"
     )
 
-    users_feedbacks: List["UserCourseFeedback"] = relationship(
+    users_feedbacks: Mapped[List["UserCourseFeedback"]] = relationship(
         "UserCourseFeedback",
         back_populates="course"
     )
