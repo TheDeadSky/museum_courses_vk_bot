@@ -43,7 +43,10 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
         last_passed_part = db.execute(last_passed_part_query).scalars().first()
 
         if last_passed_part:
-            next_part_number = last_passed_part.order_number + 1
+            if last_passed_part.last_part:
+                next_part_number = 1
+            else:
+                next_part_number = last_passed_part.order_number + 1
             course_part_query = (
                 select(CoursePart, PartQuestion)
                 .join(CoursePart.questions)
