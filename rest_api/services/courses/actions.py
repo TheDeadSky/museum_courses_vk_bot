@@ -37,6 +37,7 @@ async def get_next_course_part(course_id: int, vk_id: int, db: Session) -> Cours
             select(CoursePart)
             .join(CoursePart.progress)
             .where(CoursePart.course_id == course_id, UserCourseProgress.user_id == user.id)
+            .order_by(UserCourseProgress.date.desc())
         )
 
         last_passed_part = db.execute(last_passed_part_query).scalars().first()
