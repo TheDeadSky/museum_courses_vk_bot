@@ -37,6 +37,6 @@ async def next_course_part(answer: CoursePartQuestionAnswer, db: Session = Depen
     return await save_answer(answer, db)
 
 
-@router.put("/courses/{course_id}/feedback/")
+@router.post("/courses/{course_id}/feedback/")
 async def course_feedback(feedback: CourseFeedback, db: Session = Depends(get_db)) -> BaseResponse:
     return await save_course_feedback(feedback, db)
