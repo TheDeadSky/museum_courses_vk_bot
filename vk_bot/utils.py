@@ -45,9 +45,10 @@ async def get_state_payload(peer_id: int):
     return state_peer.payload
 
 
-async def update_state(peer_id: int, state: BaseStateGroup, payload: dict[str, Any]):
+async def update_state(peer_id: int, state: None | BaseStateGroup, payload: None | dict[str, Any] = None):
     state_payload = await get_state_payload(peer_id)
-    state_payload.update(payload)
+    if payload is not None:
+        state_payload.update(payload)
 
     await state_dispenser.set(
         peer_id,

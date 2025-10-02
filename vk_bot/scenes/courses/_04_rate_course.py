@@ -65,5 +65,10 @@ async def public_feedback_handler(message: Message):
     course_feedback = CourseFeedback(**payload)
     await services.courses.send_feedback(course_feedback)
 
+    await update_state(
+        message.peer_id,
+        None,
+        {}
+    )
     course_final_thanks = await get_text_from_db("course_final_thanks")
     await message.answer(course_final_thanks, keyboard=TO_MAIN_MENU_BUTTON)

@@ -82,6 +82,6 @@ async def start_course(event: MessageEvent):
     )
 
     await event.send_message(
-        course_part.question,
+        f"📝 Тест к уроку\n\n{course_part.question}",
         keyboard=answers.get_json()
     )
