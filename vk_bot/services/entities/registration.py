@@ -10,7 +10,7 @@ class RegistrationService(AbstractEntityService):
 
     async def register(self, registration_data: RegistrationData) -> RegistrationResponse:
         try:
-            response = await self.api_service.create(
+            response = await self._api_service.create(
                 module=self.module,
                 data=registration_data.model_dump()
             )
@@ -23,7 +23,7 @@ class RegistrationService(AbstractEntityService):
 
     async def check(self, vk_id: str) -> RegistrationCheckResponse:
         try:
-            resource = await self.api_service.read(
+            resource = await self._api_service.read(
                 module=self.module,
                 data={
                     "vk_id": vk_id
