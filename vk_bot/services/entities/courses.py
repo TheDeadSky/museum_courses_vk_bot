@@ -90,11 +90,7 @@ class CoursesService(AbstractEntityService):
         try:
             await self._api_service.create(
                 module=part_module,
-                data={
-                    "vk_id": answer.vk_id,
-                    "part_question_id": answer.part_question_id,
-                    "answer": answer.answer,
-                }
+                data=answer.model_dump()
             )
 
             return True
