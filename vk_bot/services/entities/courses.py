@@ -86,7 +86,7 @@ class CoursesService(AbstractEntityService):
             return None
 
     async def send_answer(self, answer: CoursePartQuestionAnswer) -> bool:
-        part_module = f"{self.module}/{answer.course_id}/parts/{answer.part_id}/"
+        part_module = f"{self.module}/{answer.course_id}/parts/{answer.part_id}"
         try:
             await self._api_service.create(
                 module=part_module,
