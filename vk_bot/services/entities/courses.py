@@ -93,7 +93,7 @@ class CoursesService(AbstractEntityService):
                 data={
                     "vk_id": answer.vk_id,
                     "part_question_id": answer.part_question_id,
-                    "answer": answer,
+                    "answer": answer.answer,
                 }
             )
 
