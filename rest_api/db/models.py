@@ -5,7 +5,7 @@ from sqlalchemy import (
     DateTime,
     Text,
     ForeignKey,
-    JSON
+    JSON, func
 )
 from sqlalchemy.orm import (
     DeclarativeBase,
@@ -34,7 +34,7 @@ class User(Base):
     occupation: Mapped[Optional[str]] = mapped_column(String(255))
     registration_date: Mapped[DateTime] = mapped_column(
         DateTime,
-        default=datetime.now()
+        server_default=func.now()
     )
     is_admin: Mapped[bool] = mapped_column(Boolean, default=False)
 
@@ -103,7 +103,7 @@ class UserCourseProgress(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     part_id: Mapped[int] = mapped_column(ForeignKey("course_part.id"))
     part_question_id: Mapped[int] = mapped_column(ForeignKey("part_questions.id"))
-    date: Mapped[DateTime] = mapped_column(DateTime, default=datetime.now())
+    date: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
     answer: Mapped[str] = mapped_column(Text)
 
     user: Mapped["User"] = relationship(
