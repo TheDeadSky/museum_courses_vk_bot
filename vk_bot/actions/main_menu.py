@@ -4,6 +4,7 @@ import json
 from typing import overload
 
 from vkbottle import Keyboard, Callback
+from vkbottle.tools.keyboard.color import KeyboardButtonColor
 from vkbottle_schemas.keyboard import KeyboardButtonSchema
 from vkbottle.bot import Message, MessageEvent
 
@@ -36,7 +37,9 @@ async def default_main_menu(
 
             for button in ordered_buttons:
                 if mode in button["modes"]:
-                    keyboard.add(Callback(button["text"], payload=button["callback_data"])).row()
+                    keyboard.add(
+                        Callback(button["text"], payload=button["callback_data"]), KeyboardButtonColor.PRIMARY
+                    ).row()
 
             await send_method(main_menu_text, keyboard=keyboard.get_json())
             return
