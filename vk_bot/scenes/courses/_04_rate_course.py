@@ -6,6 +6,7 @@ from models.courses import CourseFeedback
 from services import get_text_from_db
 from settings import services
 from states.courses import Courses
+from states.general_states import GeneralStates
 from utils import update_state, get_state_payload
 
 course_feedback_labeler = BotLabeler()
@@ -67,8 +68,7 @@ async def public_feedback_handler(message: Message):
 
     await update_state(
         message.peer_id,
-        None,
-        {}
+        GeneralStates.MAIN_MENU
     )
     course_final_thanks = await get_text_from_db("course_final_thanks")
     await message.answer(course_final_thanks, keyboard=TO_MAIN_MENU_BUTTON)
