@@ -6,6 +6,7 @@ from actions.general import make_rating_menu
 from customs.events import callback_handler
 from menus import TO_MAIN_MENU_BUTTON
 from models.courses import CoursePartQuestionAnswer
+from services import get_text_from_db
 from settings import services
 from utils import make_one_button_menu, merge_inline_menus
 
@@ -39,8 +40,9 @@ async def start_course(event: MessageEvent):
             message=course_part.correct_message if answer == correct_answer else course_part.incorrect_message,
         )
         await asyncio.sleep(2)
+        ask_rate = await get_text_from_db("ask_rate")
         await event.send_message(
-            "Благодарю Вас за прохождение курса! Пожалуйста, оцените курс:",
+            ask_rate,
             keyboard=make_rating_menu(course.id)
         )
         return

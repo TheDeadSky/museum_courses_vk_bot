@@ -3,12 +3,9 @@ from vkbottle_schemas.keyboard import KeyboardButtonSchema
 
 
 def make_yes_no_menu(swapped_icons: bool = False, for_state: str | None = None):
-    if swapped_icons:
-        yes_label = "🚫 Да"
-        no_label = "✅ Нет"
-    else:
-        yes_label = "✅ Да"
-        no_label = "🚫 Нет"
+    yes_label = "Да"
+    no_label = "Нет"
+
     return Keyboard(one_time=False, inline=True).schema([
         [KeyboardButtonSchema(
             label=yes_label,

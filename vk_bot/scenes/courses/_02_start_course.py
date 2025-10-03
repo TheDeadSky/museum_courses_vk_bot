@@ -6,6 +6,7 @@ from vkbottle.bot import BotLabeler, MessageEvent
 from customs.events import callback_handler
 from menus import TO_MAIN_MENU_BUTTON
 from settings import services, video_uploader
+from utils import make_one_button_menu
 
 course_labeler = BotLabeler()
 
@@ -23,17 +24,38 @@ async def start_course(event: MessageEvent):
         )
         return
 
-    if course_part.video_url:
-        await event.send_message("🎥 Видео:")
-        await event.send_message(attachment=course_part.video_url)
+    await event.send_message("🎥 Видео:")
+    await event.send_message(
+        attachment=course_part.video_url,
+        keyboard=make_one_button_menu(
+            "Открыть текст урока",
+            {"cmd":"show_course_text"}
+        ).get_json()
+    )
 
-    await asyncio.sleep(10)
+
+@callback_handler(course_labeler, cmd="show_course_text")
+async def show_course_text(event: MessageEvent):
+    await event.send_empty_answer()
+    course = await services.courses.get_course(event.payload["course_id"])
+    course_part = await services.courses.get_next_part(event.peer_id, course.id)
 
     part_title = course_part.title
     part_description = course_part.description
-    await event.send_message(f"{part_title}\n{part_description}")
+    await event.send_message(
+        f"{part_title}\n\n{part_description}",
+        keyboard=make_one_button_menu(
+            "Пройти тест",
+            {"cmd":"goto_test"}
+        ).get_json()
+    )
 
-    await asyncio.sleep(10)
+
+@callback_handler(course_labeler, cmd="goto_test")
+async def goto_test(event: MessageEvent):
+    await event.send_empty_answer()
+    course = await services.courses.get_course(event.payload["course_id"])
+    course_part = await services.courses.get_next_part(event.peer_id, course.id)
 
     answers = Keyboard(inline=True).add(
         Callback(
