@@ -29,7 +29,10 @@ async def start_course(event: MessageEvent):
         attachment=course_part.video_url,
         keyboard=make_one_button_menu(
             "Открыть текст урока",
-            {"cmd":"show_course_text"}
+            {
+                "cmd":"show_course_text",
+                "course_id": event.payload["course_id"]
+            }
         ).get_json()
     )
 
@@ -46,7 +49,10 @@ async def show_course_text(event: MessageEvent):
         f"{part_title}\n\n{part_description}",
         keyboard=make_one_button_menu(
             "Пройти тест",
-            {"cmd":"goto_test"}
+            {
+                "cmd":"goto_test",
+                "course_id": event.payload["course_id"]
+            }
         ).get_json()
     )
 
