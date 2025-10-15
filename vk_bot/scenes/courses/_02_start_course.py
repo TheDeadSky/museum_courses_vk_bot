@@ -46,11 +46,14 @@ async def show_course_text(event: MessageEvent):
     part_title = course_part.title
     part_description = course_part.description
     await event.send_message(
-        f"{part_title}\n\n{part_description}",
+        f"{part_title}\n\n{part_description}"
+    )
+    await event.send_message(
+        "⏩",
         keyboard=make_one_button_menu(
             "Пройти тест",
             {
-                "cmd":"goto_test",
+                "cmd": "goto_test",
                 "course_id": event.payload["course_id"]
             }
         ).get_json()
