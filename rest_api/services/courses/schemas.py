@@ -13,7 +13,7 @@ class CourseInfo(BaseModel):
 class CoursePart(BaseModel):
     id: int
     title: str
-    description: str = Field(description="Description of the current part", max_length=4096)
+    description: str = Field(description="Description of the current part", max_length=1024*15)
     video_url: str | None = None
     image_url: str | None = None
     last_part: bool = False
