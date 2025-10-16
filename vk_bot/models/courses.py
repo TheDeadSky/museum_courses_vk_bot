@@ -5,6 +5,7 @@ class CourseInfo(BaseModel):
     id: int
     title: str
     description: str
+    final_message: None | str = None
     is_started: bool = False
 
 

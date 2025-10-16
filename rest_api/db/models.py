@@ -53,6 +53,7 @@ class Course(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(255))
     description: Mapped[str] = mapped_column(Text, default="")
+    final_message: Mapped[str] = mapped_column(Text, default="")
 
     parts: Mapped[List["CoursePart"]] = relationship(
         "CoursePart", back_populates="course"
