@@ -46,7 +46,8 @@ async def show_course_text(event: MessageEvent):
     part_title = course_part.title
     part_description = course_part.description
     await event.send_message(
-        f"{part_title}\n\n{part_description}"
+        f"{part_title}\n\n{part_description}",
+        dont_parse_links=True
     )
     await event.send_message(
         "⏩",
@@ -114,5 +115,6 @@ async def goto_test(event: MessageEvent):
 
     await event.send_message(
         f"📝 Тест к уроку\n\n{course_part.question}",
-        keyboard=answers.get_json()
+        keyboard=answers.get_json(),
+        dont_parse_links=True
     )
